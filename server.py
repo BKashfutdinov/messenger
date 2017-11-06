@@ -6,12 +6,14 @@
 # -p <port> - TCP-порт для работы (по умолчанию использует порт 7777);
 # -a <addr> - IP-адрес для прослушивания (по умолчанию слушает все доступные адреса).
 
-import socket
+from socket import socket, AF_INET, SOCK_STREAM
 import time
 import json
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Создает сокет TCP
-s.bind(('', 8888))  # Присваивает порт 8888
+
+
+s = socket(AF_INET, SOCK_STREAM)  # Создает сокет TCP
+s.bind(('localhost', 8888))  # Присваивает порт 8888
 s.listen(5)  # Переходит в режим ожидания запросов;
 # одновременно обслуживает не более
 # 5 запросов.
