@@ -11,35 +11,31 @@
 # параметры командной строки скрипта client.py <addr> [<port>]:
 # addr - ip-адрес сервера;
 # port - tcp-порт на сервере, по умолчанию 7777.
-
-import socket
+from socket import socket, AF_INET, SOCK_STREAM
+import time
 import json
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Создать сокет TCP
-s.connect(('localhost', 8888))   # Соединиться с сервером
+client = socket(AF_INET, SOCK_STREAM)  # Создать сокет TCP
+client.connect(('localhost', 8888))  # Соединиться с сервером
+
 
 def form_precense_msg():
-    msg= {'action': 'presence'}
-    # 'time': timestr
-    # 'type': 'status', 
-    # 'user': { 
-    #     'account_name': 'C0deMaver1ck', 
-    #     'status': 'Yep, I am here!'
-    # } 
-    # }
-    jmsg = json.dumps(msg)
-    #print(jmsg)
+    message = {
+        ACTION: PRESENCE,
+        TIME: time.time(),
+        USER: {
+            ACCOUNT_NAME: account_name
+        }
+    }
+    jmsg = json.dumps(message)
     bmsg = jmsg.encode('ascii')
-    #print(bmsg)
-
-
 
     return bmsg
 
-s.send(form_precense_msg())
 
-tm = s.recv(1024)                # Принять не более 1024 байтов данных
-s.close()
+client.send(form_precense_msg())
+
+tm = client.recv(1024)  # Принять не более 1024 байтов данных
+client.close()
 
 print("Текущее время: %s" % tm.decode('ascii'))
-
