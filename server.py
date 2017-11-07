@@ -8,8 +8,8 @@
 
 from socket import socket, AF_INET, SOCK_STREAM
 import time
-import json
-
+#import json
+import log_config
 
 
 s = socket(AF_INET, SOCK_STREAM)  # Создает сокет TCP

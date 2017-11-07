@@ -1,6 +1,9 @@
 import json
+import log_config
 
+#log=Log()
 
+@Log("convert functions")
 def convert_dict_to_bytes(msg):
     if isinstance(msg, dict):
         jmsg = json.dumps(msg)
